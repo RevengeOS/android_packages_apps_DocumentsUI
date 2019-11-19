@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 
 import com.android.documentsui.R;
 
+import static eightbitlab.com.blurview.BlockingBlurController.DEFAULT_BLUR_RADIUS;
 import static eightbitlab.com.blurview.BlockingBlurController.TRANSPARENT;
 
 /**
@@ -27,6 +28,7 @@ public class BlurView extends FrameLayout {
 
     @ColorInt
     private int overlayColor;
+    private float blurRadius;
 
     public BlurView(Context context) {
         super(context);
@@ -46,6 +48,7 @@ public class BlurView extends FrameLayout {
     private void init(AttributeSet attrs, int defStyleAttr) {
         TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.BlurView, defStyleAttr, 0);
         overlayColor = a.getColor(R.styleable.BlurView_blurOverlayColor, TRANSPARENT);
+        blurRadius = a.getFloat(R.styleable.BlurView_blurRadius, DEFAULT_BLUR_RADIUS);
         a.recycle();
     }
 
@@ -86,7 +89,7 @@ public class BlurView extends FrameLayout {
      * @return {@link BlurView} to setup needed params.
      */
     public BlurViewFacade setupWith(@NonNull ViewGroup rootView) {
-        BlurController blurController = new BlockingBlurController(this, rootView, overlayColor);
+        BlurController blurController = new BlockingBlurController(this, rootView, overlayColor, blurRadius);
         this.blurController.destroy();
         this.blurController = blurController;
 
@@ -99,6 +102,7 @@ public class BlurView extends FrameLayout {
      * @see BlurViewFacade#setBlurRadius(float)
      */
     public BlurViewFacade setBlurRadius(float radius) {
+        this.blurRadius = radius;
         return blurController.setBlurRadius(radius);
     }
 
