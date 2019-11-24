@@ -80,22 +80,40 @@
             android:layout_gravity="start"
             android:orientation="vertical"
             android:elevation="0dp"
-            android:background="?android:attr/colorBackground">
+            android:background="@android:color/transparent">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/roots_toolbar"
+            <eightbitlab.com.blurview.BlurView
+                android:id="@+id/drawer_blur"
                 android:layout_width="match_parent"
-                android:layout_height="?android:attr/actionBarSize"
-                android:background="?android:attr/colorBackground"
-                android:elevation="0dp"
-                app:titleTextAppearance="@style/DrawerMenuTitle"
-                app:titleTextColor="?android:colorPrimary"/>
+                android:layout_height="match_parent"
+                app:blurRadius="25">
 
-            <FrameLayout
-                android:id="@+id/container_roots"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="start"
+                    android:orientation="vertical"
+                    android:elevation="0dp"
+                    android:background="@android:color/transparent">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/roots_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?android:attr/actionBarSize"
+                    android:background="@android:color/transparent"
+                    android:elevation="0dp"
+                    app:titleTextAppearance="@style/DrawerMenuTitle"
+                    app:titleTextColor="?android:colorPrimary"/>
+
+                <FrameLayout
+                    android:id="@+id/container_roots"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                </LinearLayout>
+
+            </eightbitlab.com.blurview.BlurView>
 
         </LinearLayout>
 

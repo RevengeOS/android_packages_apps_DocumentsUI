@@ -19,8 +19,10 @@ package com.android.documentsui;
 import static com.android.documentsui.base.SharedMinimal.DEBUG;
 
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.ColorRes;
 import androidx.appcompat.widget.Toolbar;
@@ -29,6 +31,9 @@ import androidx.drawerlayout.widget.DrawerLayout.DrawerListener;
 import androidx.legacy.app.ActionBarDrawerToggle;
 
 import com.android.documentsui.base.Display;
+
+import eightbitlab.com.blurview.BlurView;
+import eightbitlab.com.blurview.RenderScriptBlur;
 
 /**
  * A facade over the various pieces comprising "roots fragment in a Drawer".
@@ -54,6 +59,14 @@ public abstract class DrawerController implements DrawerListener {
         if (layout == null) {
             return new DummyDrawerController();
         }
+
+        final View decorView = activity.getWindow().getDecorView();
+        final ViewGroup root = (ViewGroup) decorView.findViewById(android.R.id.content);
+
+        final BlurView drawerBlur = activity.findViewById(R.id.drawer_blur);
+        final Drawable windowBackground = decorView.getBackground();
+        drawerBlur.setupWith(root).setFrameClearDrawable(windowBackground)
+                .setBlurAlgorithm(new RenderScriptBlur(activity));
 
         View drawer = activity.findViewById(R.id.drawer_roots);
         Toolbar toolbar = (Toolbar) activity.findViewById(R.id.roots_toolbar);
