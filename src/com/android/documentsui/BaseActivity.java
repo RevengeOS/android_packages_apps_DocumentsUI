@@ -377,16 +377,24 @@ public abstract class BaseActivity
     private void setContainer() {
         View root = findViewById(R.id.coordinator_layout);
         root.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         root.setOnApplyWindowInsetsListener((v, insets) -> {
             root.setPadding(insets.getSystemWindowInsetLeft(),
-                    insets.getSystemWindowInsetTop(), insets.getSystemWindowInsetRight(), 0);
+                    0, insets.getSystemWindowInsetRight(), 0);
 
             View saveContainer = findViewById(R.id.container_save);
-            saveContainer.setPadding(0, 0, 0, insets.getSystemWindowInsetBottom());
+            saveContainer.setPadding(0, insets.getSystemWindowInsetTop(),
+                    0, insets.getSystemWindowInsetBottom());
 
-            View rootsContainer = findViewById(R.id.container_roots);
-            rootsContainer.setPadding(0, 0, 0, insets.getSystemWindowInsetBottom());
+            View drawerBlur = findViewById(R.id.drawer_blur);
+            drawerBlur.setPadding(0, insets.getSystemWindowInsetTop(),
+                    0, insets.getSystemWindowInsetBottom());
+            
+            View collapsingToolbar = findViewById(R.id.collapsing_toolbar);
+            collapsingToolbar.setPadding(0, insets.getSystemWindowInsetTop(), 0, 0);
+
+            View containerDirectory = findViewById(R.id.container_directory);
+            containerDirectory.setPadding(0, insets.getSystemWindowInsetTop(), 0, 0);
 
             return insets.consumeSystemWindowInsets();
         });
